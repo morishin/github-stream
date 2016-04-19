@@ -42,12 +42,17 @@
   },
 
   setDescriptions: function(notification) {
-    $('#title').text(notification.title);
+    var urlComponents = notification.url.split('//').pop().split('/');
+    var repositoryName = urlComponents.slice(1, 3).join('/');
+    var number = urlComponents[urlComponents.length - 1].split('#')[0];
+    $('#title').text(repositoryName + ' #' + number);
+    $('#message').text(notification.title);
     $('#icon').attr('src', notification.icon);
   },
 
   setNoUnreadDescriptions: function() {
-    $('#title').text('No unread notifications.');
+    $('#title').remove();
+    $('#message').text('No unread notifications.');
     $('#icon').attr('src', '../images/icon19.png');
     $("#next-button").remove();
   }
